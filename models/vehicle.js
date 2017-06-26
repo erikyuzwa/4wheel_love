@@ -9,12 +9,12 @@ module.exports = class Vehicle {
       this._model = autoModel;
       this._year = autoYear;
 
-      this._fuelType = 'gas';
-      this._odo = '142001';
+      this._fuelType = 0;
    }
 
-   // set the fuel type for this vehicle - gas, electric, diesel
+   // set the fuel type for this vehicle - diesel (0), electric (1), gas (2)
    setFuelType(type) {
+
      this._fuelType = type;
    }
 

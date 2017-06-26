@@ -1,39 +1,38 @@
 
+'use strict';
 var mysql = require('mysql');
-//var yamlConfig = require('node-yaml-config');
 var pool = require('./pool.js');
 
-//var config = yamlConfig.load(__dirname + '/../config.yml');
+module.exports.getAllFromTable = function (tableName, callback) {
 
-//console.log(config);
+    if (!tableName) {
+        return;
+    }
 
-module.exports.getVehicles = function (callback) {
-
-    //callback({vehicles: []});
-
-
-    /*
-    pool.getConnection(function(err,connection) {
+    pool.getConnection(function(err, connection) {
         if (err) {
           callback(true);
           return;
         }
-        connection.query(query,function (err,results) {
+
+        connection.query('select * from ' + tableName, function (err, results) {
+            console.log(results);
             connection.release();
             if (!err) {
-                callback(false, {rows: results});
+                callback({data: results});
             }
-            // check null for results here
+            // TODO check null for results here
         });
         connection.on('error', function(err) {
               callback(true);
         });
-    });*/
+    });
+
 };
 
-module.exports.createVehicle = function (data, callback) {
+module.exports.newVehicle = function (data, callback) {
 
-    console.log('createNewVehicle');
+    console.log('newVehicle');
     console.log(data);
     callback({vehicle: {
 
@@ -59,16 +58,4 @@ module.exports.createVehicle = function (data, callback) {
 };
 
 
-/*
-var connection = mysql.createConnection({
-  host: config.database.host + ':' + config.database.port,
-  user: config.database.user,
-  password: config.database.password,
-  database: config.database.db
-});
-
-connection.connect(function(err) {
-  if (err) throw err;
-  console.log('You are now connected...');
-});*/
 

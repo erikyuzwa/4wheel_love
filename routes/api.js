@@ -2,17 +2,14 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../database/db.js');
+var Customer = require('../models/customer.js');
 var Vehicle = require('../models/vehicle.js');
 var Maintenance = require('../models/maintenance.js');
 var Transaction = require('../models/transaction.js');
 
-
-var test = new Vehicle('toyota', 'sienna', '2004');
-console.log(test.toString());
-
 /* GET vehicles listing. */
 router.get('/vehicles', function (req, res, next) {
-  db.getVehicles(function(data) {
+  db.getAllFromTable('vehicles', function(data) {
     res.send(data);
   });
 
@@ -20,25 +17,41 @@ router.get('/vehicles', function (req, res, next) {
 
 /* POST new vehicle */
 router.post('/vehicles/new', function (req, res) {
-  //res.send('Got a POST request for new vehicle');
-  db.createVehicle({'model': 'sienna', 'year': '2014'}, function(data) {
-    res.send(data);
-  });
+
+    var newMake = req.body.new_make;
+    var newModel = req.body.new_model;
+    var newYear = req.body.new_year;
+
+    // TODO need to implement some kind of security token system on all calls
+    var token = req.body.token;
+
+    db.newVehicle({'make': newMake, 'model': newModel, 'year': newYear}, function(data) {
+      res.send(data);
+    });
 });
 
 /* PUT updated vehicle info */
 router.put('/vehicles/edit', function (req, res) {
-  res.send('got a PUT request for vehicle');
+
+    // TODO need to implement some kind of security token system on all calls
+    var token = req.body.token;
+
+    res.send('got a PUT request for vehicle');
 });
 
 /* DELETE vehicle */
 router.delete('/vehicles/delete', function (req, res) {
-  res.send('get a DELETE request for vehicle');
+    res.send('get a DELETE request for vehicle');
 });
+
+//=============================================================
 
 /* GET maintenance listing */
 router.get('/maintenance', function (req, res) {
-  res.send('get a listing of maintenance');
+  //res.send('get a listing of maintenance');
+  db.getAllFromTable('maintenance', function(data) {
+    res.send(data);
+  });
 });
 
 /* POST new maintenance */
@@ -57,9 +70,13 @@ router.delete('/maintenance/delete', function (req, res) {
   res.send('get a DELETE request for maintenance');
 });
 
+//=============================================================
+
 /* GET transactions listing */
 router.get('/transactions', function (req, res) {
-  res.send('get a listing of transactions');
+  db.getAllFromTable('transactions', function(data) {
+    res.send(data);
+  });
 });
 
 /* POST new transaction */
@@ -76,6 +93,31 @@ router.put('/transactions/edit', function (req, res) {
 /* DELETE transaction */
 router.delete('/transactions/delete', function (req, res) {
   res.send('get a DELETE request for transactions');
+});
+
+//=============================================================
+
+/* GET customers listing */
+router.get('/customers', function (req, res) {
+  db.getAllFromTable('customers', function(data) {
+    res.send(data);
+  });
+});
+
+/* POST new customer */
+router.post('/customers/new', function (req, res) {
+  res.send('Got a POST request for new customer');
+
+});
+
+/* PUT updated customer info */
+router.put('/customers/edit', function (req, res) {
+  res.send('get a PUT request for customer');
+});
+
+/* DELETE customer */
+router.delete('/customers/delete', function (req, res) {
+  res.send('get a DELETE request for customer');
 });
 
 

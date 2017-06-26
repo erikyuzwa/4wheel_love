@@ -11,6 +11,12 @@ The system is REST-based with database interaction using MySQL.
 * edit `./config.yml` with your environment-specific and/or database details
 * `npm start` or `yarn start` to launch the Express server on [http://localhost:3000](http://localhost:3000)
 
+## project directory layout
+
+```
+
+```
+
 ## testing with Postman
 
 [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en) is a great tool

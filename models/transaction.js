@@ -5,32 +5,22 @@
 // of the state of this "work request"...
 'use strict';
 
-module.exports = class Transaction {
-   constructor() {
-      this._id = 0;
-      this._maintenanceId = 0;
-      this._vehicleId = 0;
-      this._customerId = 0;
+let Backbone = require('backbone');
 
-      this._creationDate = new Date.now();
+let Transaction = Backbone.Model.extend ({
+   defaults: {
+      maintenanceId: 0,
+      vehicleId: 0,
+      customerId: 0,
+      creationDate: Date.now(),
+      status: '',
+      paymentTransactionId: '',
+      odo: 0
+   },
 
-      this._status = '';
-      this._paymentTransactionId = '';
+   initialize: function() {
 
-      this._odo = 0;
    }
+});
 
-   // set the payment id returned from our payment provider - like Stripe, etc.
-   setPaymentTransactionId(trans) {
-     this._paymentTransactionId = trans;
-   }
-
-   // set the status
-   setStatus(status) {
-     this._status = status;
-   }
-
-   toString() {
-       return 'some transaction';
-   }
-};
+module.exports = Transaction;

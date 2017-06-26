@@ -2,23 +2,17 @@
 // maintenance.js
 'use strict';
 
-module.exports = class Maintenance {
-   constructor(type, description) {
-      this._id = 0;
-      this._type = type;
-      this._description = description;
-   }
+let Backbone = require('backbone');
 
-   // set the maintenance type for this item - oilchange, tirerotation, airfilter, batterycheck
-   setType(type) {
-     this._type = type;
-   }
+let Maintenance = Backbone.Model.extend ({
+   defaults: {
+      type: '',
+      description: ''
+   },
 
-   setDescription(desc) {
-      this._description = desc;
-   }
+   initialize: function() {
 
-   toString() {
-       return 'some maintenance';
    }
-};
+});
+
+module.exports = Maintenance;

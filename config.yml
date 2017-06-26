@@ -1,0 +1,24 @@
+default:
+  server:
+    port: 3000
+    host: '0.0.0.0'
+  database:
+    host: '192.168.175.1'
+    port: 3306
+development:
+  database:
+    db: 'car_love'
+    user: 'root'
+    password: ''
+test:
+  database:
+    db: 'test_db'
+production:
+  server:
+    port: 8000
+  database:
+    db: 'prod_db'
+    user: 'dbuser'
+    password: 'pass'
+  cache:
+    dir: 'static'

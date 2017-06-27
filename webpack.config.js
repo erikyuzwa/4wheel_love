@@ -15,9 +15,17 @@ if (env === 'build') {
   outputFile = libraryName + '.js';
 }
 
+plugins.push(new webpack.ProvidePlugin({
+ 'Backbone': 'backbone'
+}));
+
+plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
+
 var config = {
   entry: __dirname + '/src/index.js',
+
   devtool: 'source-map',
+
   output: {
     path: __dirname + '/lib',
     filename: outputFile,
@@ -25,24 +33,30 @@ var config = {
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
+
   module: {
     loaders: [
       {
         test: /(\.jsx|\.js)$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         exclude: /(node_modules|bower_components)/
-      },
+      },/*
       {
         test: /(\.jsx|\.js)$/,
         loader: 'eslint-loader',
         exclude: /node_modules/
-      }
+      }*/
     ]
   },
+
   resolve: {
-    //root: path.resolve('./src'),
-    extensions: ['.js']
+    alias: {
+      backbone$: path.resolve(__dirname, './node_modules/backbone/backbone-min.js')
+    },
+    extensions: ['.js'],
+    modules: ['node_modules']
   },
+
   plugins: plugins
 };
 

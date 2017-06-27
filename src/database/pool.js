@@ -4,7 +4,9 @@
 // Load module
 const mysql = require('mysql');
 const yamlConfig = require('node-yaml-config');
-let config = yamlConfig.load(__dirname + '/../config.yml');
+const path = require('path');
+
+let config = yamlConfig.load(path.resolve(__dirname, '../../config.yml'));
 
 // Initialize pool of MySQL connections.
 // This could potentially be abstracted into a Provider to provide support for other databases like that Microsoft one

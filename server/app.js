@@ -8,14 +8,15 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var helmet = require('helmet');
 var yamlConfig = require('node-yaml-config');
-var db = require('./database/db.js');
+
+// TODO replace with the built version of our SDK
+var db = require(path.resolve(__dirname, '../src/database/db.js'));
 
 var apiRoute = require('./routes/api');
 var index = require('./routes/index');
-//var users = require('./routes/users');
 
 // read in our config from the yml file
-var config = yamlConfig.load(__dirname + '/config.yml');
+var config = yamlConfig.load(path.resolve(__dirname, '../config.yml'));
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.set('hostPort', config.server.port);
 app.set('hostName', config.server.host);
 
 // view engine setup
+// TODO surround this with a feature flag since we don't need to expose in production
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
@@ -41,7 +43,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(helmet());
 
 app.use('/', index);
-//app.use('/users', users);
 app.use('/api', apiRoute);
 
 // catch 404 and forward to error handler

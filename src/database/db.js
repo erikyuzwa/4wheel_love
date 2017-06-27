@@ -1,7 +1,7 @@
 
 'use strict';
 const mysql = require('mysql');
-let Pool = require('./pool.js');
+let Pool = require('./pool');
 
 module.exports.getAllFromTable = function (tableName, callback) {
 

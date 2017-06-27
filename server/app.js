@@ -18,6 +18,7 @@ var index = require('./routes/index');
 // read in our config from the yml file
 var config = yamlConfig.load(path.resolve(__dirname, '../config.yml'));
 
+// our main Express reference
 var app = express();
 
 // scan in values from config

@@ -13,22 +13,21 @@ describe('Transaction spec tests', function () {
         var trans = new Transaction();
         expect(trans.get('status')).to.equal('');
         expect(trans.get('paymentTransactionId')).to.equal('');
+        expect(trans.get('paymentDate')).to.equal(null);
         expect(trans.get('maintenanceId')).to.equal(0);
         expect(trans.get('vehicleId')).to.equal(0);
         expect(trans.get('customerId')).to.equal(0);
         expect(trans.get('odo')).to.equal(0);
     });
 
-    it('should fire a custom event when state change', function() {
-        var spy = sinon.spy();
+    it('should update payment and status when paymentTransactionId change', function() {
         var trans = new Transaction();
 
-        trans.on('change', spy);
+        trans.set({paymentTransactionId: '==CBCBZZERAFJJADFA'});
 
-        trans.set({completed: true, order: 1});
-        trans.set('title', 'my title');
+        expect(trans.get('paymentDate')).to.not.equal(null);
+        expect(trans.get('status')).to.equal('paid');
 
-        sinon.assert.calledTwice(spy);
     });
 
     it('should trigger an invalid event on failed validation', function() {

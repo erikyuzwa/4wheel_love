@@ -2,13 +2,13 @@
 'use strict';
 
 // Load module
-var mysql = require('mysql');
-var yamlConfig = require('node-yaml-config');
-var config = yamlConfig.load(__dirname + '/../config.yml');
+const mysql = require('mysql');
+const yamlConfig = require('node-yaml-config');
+let config = yamlConfig.load(__dirname + '/../config.yml');
 
 // Initialize pool of MySQL connections.
 // This could potentially be abstracted into a Provider to provide support for other databases like that Microsoft one
-var pool = mysql.createPool({
+let Pool = mysql.createPool({
     connectionLimit : config.database.connection_pool_size,
     host     : config.database.host,
     user     : config.database.user,
@@ -17,4 +17,4 @@ var pool = mysql.createPool({
     debug    : true
 });
 
-module.exports = pool;
+module.exports = Pool;

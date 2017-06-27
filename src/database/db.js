@@ -1,7 +1,7 @@
 
 'use strict';
-var mysql = require('mysql');
-var pool = require('./pool.js');
+const mysql = require('mysql');
+let Pool = require('./pool.js');
 
 module.exports.getAllFromTable = function (tableName, callback) {
 
@@ -9,7 +9,7 @@ module.exports.getAllFromTable = function (tableName, callback) {
         return;
     }
 
-    pool.getConnection(function(err, connection) {
+    Pool.getConnection(function(err, connection) {
         if (err) {
           callback(true);
           return;

@@ -5,7 +5,7 @@ const path = require('path');
 
 
 // TODO replace with the built version of our SDK
-var db = require(path.resolve(__dirname, '../../src/database/db.js'));
+
 var Customer = require(path.resolve(__dirname, '../../src/models/customer.js'));
 var Vehicle = require(path.resolve(__dirname, '../../src/models/vehicle.js'));
 var Maintenance = require(path.resolve(__dirname, '../../src/models/maintenance.js'));

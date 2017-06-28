@@ -6,8 +6,10 @@
 'use strict';
 
 let Backbone = require('backbone');
+let db = require('../database/db.js');
 
 let Transaction = Backbone.Model.extend ({
+
    defaults: {
       maintenanceId: 0,
       vehicleId: 0,
@@ -29,7 +31,14 @@ let Transaction = Backbone.Model.extend ({
    // TODO - figure out some kind of audit system to ensure we can track every financial transaction to this Entity
    processPayment: function() {
      this.set({status: 'paid', paymentDate: Date.now()});
-   }
+   },
+
+   /*
+   save: function(attrs, options) {
+    options.patch = true;
+    // Proxy the call to the original save function
+    Backbone.Model.prototype.save.call(this, attrs, options);
+   }*/
 });
 
 module.exports = Transaction;

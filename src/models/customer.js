@@ -7,6 +7,7 @@
 let Backbone = require('backbone');
 
 let Customer = Backbone.Model.extend ({
+
    defaults: {
       vehicleId: 0,
       firstName: '',

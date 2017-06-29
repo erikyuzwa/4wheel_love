@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2017 at 11:57 PM
+-- Generation Time: Jun 30, 2017 at 12:41 AM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -40,6 +40,14 @@ CREATE TABLE `transactions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`id`, `vehicle_id`, `creation_date`, `last_modified`, `odo`, `maintenance_id`, `status`, `customer_id`) VALUES
+(1, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1138, 0, 'in progress', 0),
+(2, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 34234, 1, 'in progress', 1);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -57,7 +65,7 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

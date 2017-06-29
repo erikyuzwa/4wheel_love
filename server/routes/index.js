@@ -5,18 +5,20 @@
  * In a production environment, this entire module could / should be disabled to obviously prevent unauthorized
  * exposure of data.
  *
+ * TODO
+ * - decide if we should reference our library objects from `./src` or use the generated output in `./lib`
+ *
+ *
  */
 
 const express = require('express');
 const path = require('path');
 let router = express.Router();
 
-// TODO replace with path to our SDK
 import Customers from '../../src/collections/customers.js';
 import Maintenances from '../../src/collections/maintenances.js';
 import Vehicles from '../../src/collections/vehicles.js';
 import Transactions from '../../src/collections/transactions.js';
-
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

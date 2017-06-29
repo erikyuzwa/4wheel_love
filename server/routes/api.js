@@ -12,6 +12,7 @@
  *
  * TODO
  * - we should integrate some kind of token system to control rate limits for requests, etc.
+ * - decide if we should reference our library objects from `./src` or use the generated output in `./lib`
  *
  */
 'use strict';
@@ -20,13 +21,10 @@ const express = require('express');
 let router = express.Router();
 const path = require('path');
 
-// TODO replace with the built version of our SDK
 import Customer from '../../src/models/customer';
 import Vehicle from '../../src/models/vehicle';
 import Maintenance from '../../src/models/maintenance';
 import Transaction from '../../src/models/transaction';
-
-
 import Customers from '../../src/collections/customers';
 import Maintenances from '../../src/collections/maintenances';
 import Transactions from '../../src/collections/transactions';

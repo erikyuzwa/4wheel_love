@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2017 at 11:57 PM
+-- Generation Time: Jun 30, 2017 at 12:41 AM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -25,20 +25,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `maintenance`
+-- Table structure for table `maintenances`
 --
 
-CREATE TABLE `maintenance` (
+CREATE TABLE `maintenances` (
   `id` int(11) NOT NULL,
   `type` varchar(128) NOT NULL,
   `description` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `maintenance`
+-- Dumping data for table `maintenances`
 --
 
-INSERT INTO `maintenance` (`id`, `type`, `description`) VALUES
+INSERT INTO `maintenances` (`id`, `type`, `description`) VALUES
 (1, 'oilchange', 'change the oil'),
 (2, 'tirerotation', 'rotate the tires'),
 (3, 'airfilter', 'change the air filter'),
@@ -49,9 +49,9 @@ INSERT INTO `maintenance` (`id`, `type`, `description`) VALUES
 --
 
 --
--- Indexes for table `maintenance`
+-- Indexes for table `maintenances`
 --
-ALTER TABLE `maintenance`
+ALTER TABLE `maintenances`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -59,9 +59,9 @@ ALTER TABLE `maintenance`
 --
 
 --
--- AUTO_INCREMENT for table `maintenance`
+-- AUTO_INCREMENT for table `maintenances`
 --
-ALTER TABLE `maintenance`
+ALTER TABLE `maintenances`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -6,6 +6,7 @@ import _  from 'underscore';
 import { Collection } from 'backbone';
 import Maintenance from '../models/customer';
 import db from '../database/db.js';
+import Promise from 'bluebird';
 
 class Maintenances extends Collection {
 
@@ -16,15 +17,20 @@ class Maintenances extends Collection {
 		this.model = Maintenance;
 	}
 
+	// override the Backbone fetch in order to go against our database backend
 	fetch(options) {
 
-    // override the Backbone fetch in order to go against our database backend
-    db.getAllFromTable('maintenances', function(data) {
+	  return new Promise(function(resolve, reject) {
+
+      db.getAllFromTable('maintenances', function(data) {
+        console.log(data);
+        resolve(data);
+      }, function(error) {
+        reject(error);
+      });
 
     });
 
-    //Call Backbone's fetch
-    //return Backbone.Collection.prototype.fetch.call(this, options);
   }
 }
 

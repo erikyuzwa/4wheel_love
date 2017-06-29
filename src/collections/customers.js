@@ -6,6 +6,7 @@
 import { Collection } from 'backbone';
 import Customer from '../models/customer';
 import db from '../database/db.js';
+import Promise from 'bluebird';
 
 class Customers extends Collection {
 	constructor(models, options){
@@ -15,13 +16,12 @@ class Customers extends Collection {
 		this.model = Customer;
 	}
 
+	// override the Backbone fetch in order to go against our database backend
 	fetch(options) {
 
 	  return new Promise(function(resolve, reject) {
 
-	    // override the Backbone fetch in order to go against our database backend
       db.getAllFromTable('customers', function(data) {
-        console.log('customers response');
         console.log(data);
         resolve(data);
       }, function(error) {
@@ -30,10 +30,6 @@ class Customers extends Collection {
 
     });
 
-
-
-    //Call Backbone's fetch
-    //return Backbone.Collection.prototype.fetch.call(this, options);
   }
 
 }

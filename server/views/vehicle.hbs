@@ -1,7 +1,46 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">&laquo; 4wheel_love</a>
+    </div>
+  </div>
+</nav>
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
             <h1>{{title}}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>make</th>
+                        <th>model</th>
+                        <th>year</th>
+                        <th>fuel_type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each items}}
+                        <tr>
+                            <td>{{id}}</td>
+                            <td>{{make}}</td>
+                            <td>{{model}}</td>
+                            <td>{{year}}</td>
+                            <td>{{fuel_type}}</td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

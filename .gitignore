@@ -25,3 +25,6 @@ lib-cov
 node_modules/
 bower_components/
 
+# ignore the generated output since it should be always freshly builts from source
+lib/
+

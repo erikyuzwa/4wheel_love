@@ -29,18 +29,4 @@ describe('Transaction spec tests', function () {
         expect(trans.get('status')).to.equal('paid');
 
     });
-
-    it('should trigger an invalid event on failed validation', function() {
-        var errorCallback = sinon.spy();
-        var trans = new Transaction();
-
-        //todo.on('invalid', errorCallback);
-
-        //todo.save({ completed: 'unvalid completed value' });
-
-        //sinon.assert.calledOnce(errorCallback);
-        //sinon.assert.calledWithMatch(errorCallback, trans, 'Todo.completed must be a boolean value.');
-        // Unless set {validate:true} to be called before set
-        expect(trans.get('completed')).to.equal('unvalid completed value');
-    });
 });

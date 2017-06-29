@@ -2,19 +2,18 @@
 // maintenance.js
 'use strict';
 
-let Backbone = require('backbone');
-let db = require('../database/db.js');
+import { Model } from 'backbone';
+import db from '../database/db.js';
 
-let Maintenance = Backbone.Model.extend ({
+class Maintenance extends Model {
 
-   defaults: {
-      type: '',
-      description: ''
-   },
+   defaults() {
+      return {
+         type: '',
+         description: ''
+      };
+   }
 
-   initialize: function() {
-
-   },
 
    /*
    save: function(attrs, options) {
@@ -22,6 +21,6 @@ let Maintenance = Backbone.Model.extend ({
     // Proxy the call to the original save function
     Backbone.Model.prototype.save.call(this, attrs, options);
    }*/
-});
+}
 
-module.exports = Maintenance;
+export default Maintenance;

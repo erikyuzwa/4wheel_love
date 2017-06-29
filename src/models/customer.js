@@ -4,19 +4,19 @@
 // this object tracks the customer data
 'use strict';
 
-let Backbone = require('backbone');
+import { Model } from 'backbone';
+import db from '../database/db.js';
 
-let Customer = Backbone.Model.extend ({
+class Customer extends Model {
 
-   defaults: {
-      vehicleId: 0,
-      firstName: '',
-      lastName: ''
-   },
-
-   initialize: function() {
-
+   defaults() {
+      return {
+         vehicleId: 0,
+         firstName: '',
+         lastName: ''
+      };
    }
-});
+}
 
-module.exports = Customer;
+export default Customer;
+

@@ -2,21 +2,19 @@
 // vehicle.js
 'use strict';
 
-let Backbone = require('backbone');
-let db = require('../database/db.js');
+import { Model } from 'backbone';
+import db from '../database/db.js';
 
-let Vehicle = Backbone.Model.extend ({
+class Vehicle extends Model {
 
-   defaults: {
-      make: '',
-      model: '',
-      year: 0,
-      fuelType: 0
-   },
-
-   initialize: function() {
-
-   },
+   defaults() {
+      return {
+         make: '',
+         model: '',
+         year: 0,
+         fuelType: 0
+      };
+   }
 
    /*
    save: function(attrs, options) {
@@ -25,7 +23,6 @@ let Vehicle = Backbone.Model.extend ({
     Backbone.Model.prototype.save.call(this, attrs, options);
    }*/
 
+}
 
-});
-
-module.exports = Vehicle;
+export default Vehicle;

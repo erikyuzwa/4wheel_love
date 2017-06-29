@@ -1,20 +1,46 @@
 
-var express = require('express');
-var router = express.Router();
+/**
+ * The main idea behind the routes exposed here, is to function as our exposed REST API for dealing with our
+ * system.
+ *
+ * Once express parses our route (`/api/*`), we'll create a Model or Collection based on the route requested and
+ * hand off our actual database querying via the Backbone sync functionality.
+ *
+ * We are doing a hybrid of sorts from a "pure" REST implementation...I usually prefer the API design of the resource
+ * endpoint being on the Url, with identifiers sent via the body such as resource_id, etc. with any given security
+ * tokens being put right into HTTP headers
+ *
+ * TODO
+ * - we should integrate some kind of token system to control rate limits for requests, etc.
+ *
+ */
+'use strict';
+
+const express = require('express');
+let router = express.Router();
 const path = require('path');
 
-
 // TODO replace with the built version of our SDK
+import Customer from '../../src/models/customer';
+import Vehicle from '../../src/models/vehicle';
+import Maintenance from '../../src/models/maintenance';
+import Transaction from '../../src/models/transaction';
 
-var Customer = require(path.resolve(__dirname, '../../src/models/customer.js'));
-var Vehicle = require(path.resolve(__dirname, '../../src/models/vehicle.js'));
-var Maintenance = require(path.resolve(__dirname, '../../src/models/maintenance.js'));
-var Transaction = require(path.resolve(__dirname, '../../src/models/transaction.js'));
+
+import Customers from '../../src/collections/customers';
+import Maintenances from '../../src/collections/maintenances';
+import Transactions from '../../src/collections/transactions';
+import Vehicles from '../../src/collections/vehicles';
 
 /* GET vehicles listing. */
 router.get('/vehicles', function (req, res, next) {
-  db.getAllFromTable('vehicles', function(data) {
-    res.send(data);
+
+  let vehicles = new Vehicles();
+
+  vehicles.fetch({
+    success: function(data) {
+      res.send(data);
+    }
   });
 
 });
@@ -22,23 +48,24 @@ router.get('/vehicles', function (req, res, next) {
 /* POST new vehicle */
 router.post('/vehicles/new', function (req, res) {
 
-    var newMake = req.body.new_make;
-    var newModel = req.body.new_model;
-    var newYear = req.body.new_year;
+    let newMake = req.body.make;
+    let newModel = req.body.model;
+    let newYear = req.body.year;
 
-    // TODO need to implement some kind of security token system on all calls
-    var token = req.body.token;
-
-    db.newVehicle({'make': newMake, 'model': newModel, 'year': newYear}, function(data) {
-      res.send(data);
+    let newVehicle = new Vehicle({
+      make: newMake,
+      model: newModel,
+      year: newYear
     });
+
+    newVehicle.save();
+
 });
 
 /* PUT updated vehicle info */
 router.put('/vehicles/edit', function (req, res) {
 
-    // TODO need to implement some kind of security token system on all calls
-    var token = req.body.token;
+    let vehicleId = req.body.vehicle_id;
 
     res.send('got a PUT request for vehicle');
 });
@@ -51,26 +78,30 @@ router.delete('/vehicles/delete', function (req, res) {
 //=============================================================
 
 /* GET maintenance listing */
-router.get('/maintenance', function (req, res) {
-  //res.send('get a listing of maintenance');
-  db.getAllFromTable('maintenance', function(data) {
-    res.send(data);
+router.get('/maintenances', function (req, res) {
+
+  let maintenances = new Maintenances();
+  maintenances.fetch({
+      success: function(maintenances, response) {
+          res.send(response);
+      }
   });
+
 });
 
 /* POST new maintenance */
-router.post('/maintenance/new', function (req, res) {
+router.post('/maintenances/new', function (req, res) {
   res.send('Got a POST request for new maintenance');
 
 });
 
 /* PUT updated maintenance info */
-router.put('/maintenance/edit', function (req, res) {
+router.put('/maintenances/edit', function (req, res) {
   res.send('get a PUT request for maintenance');
 });
 
 /* DELETE maintenance */
-router.delete('/maintenance/delete', function (req, res) {
+router.delete('/maintenances/delete', function (req, res) {
   res.send('get a DELETE request for maintenance');
 });
 
@@ -78,9 +109,7 @@ router.delete('/maintenance/delete', function (req, res) {
 
 /* GET transactions listing */
 router.get('/transactions', function (req, res) {
-  db.getAllFromTable('transactions', function(data) {
-    res.send(data);
-  });
+
 });
 
 /* POST new transaction */
@@ -103,9 +132,14 @@ router.delete('/transactions/delete', function (req, res) {
 
 /* GET customers listing */
 router.get('/customers', function (req, res) {
-  db.getAllFromTable('customers', function(data) {
-    res.send(data);
+
+  let customers = new Customers();
+  return customers.fetch({
+      success: function(customers, response) {
+          res.send(response);
+      }
   });
+
 });
 
 /* POST new customer */
@@ -123,6 +157,5 @@ router.put('/customers/edit', function (req, res) {
 router.delete('/customers/delete', function (req, res) {
   res.send('get a DELETE request for customer');
 });
-
 
 module.exports = router;

@@ -9,9 +9,6 @@ var bodyParser = require('body-parser');
 var helmet = require('helmet');
 var yamlConfig = require('node-yaml-config');
 
-// TODO replace with the built version of our SDK
-var db = require(path.resolve(__dirname, '../src/database/db.js'));
-
 var apiRoute = require('./routes/api');
 var index = require('./routes/index');
 
@@ -38,13 +35,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 // make use of helmet for some security best practices
 app.use(helmet());
 
+// for local development, expose our views which render from our database
 app.use('/', index);
 app.use('/api', apiRoute);
+
+app.use('/jquery', express.static(path.resolve(__dirname, '../node_modules/jquery/dist/')));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,27 +1,30 @@
 // webpack.config.js
 'use strict';
-var webpack = require('webpack');
-var path = require('path');
-var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
-var env = process.env.WEBPACK_ENV;
-var libraryName = 'library';
-var outputFile = libraryName + '.js';
-var plugins = [];
+const webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
+const path = require('path');
+const env  = require('yargs').argv.env;
+
+const pkg = require('./package.json');
+
+let libraryName = pkg.name;
+let outputFile;
+let plugins = [];
+
+plugins.push(new CleanWebpackPlugin(['./lib']));
 
 if (env === 'build') {
   plugins.push(new UglifyJsPlugin({ minimize: true }));
-  outputFile = libraryName + '.min.js';
+  outputFile = libraryName + '-' + pkg.version + '.min.js';
 } else {
-  outputFile = libraryName + '.js';
+  outputFile = libraryName + '-' + pkg.version + '.js';
 }
 
-plugins.push(new webpack.ProvidePlugin({
- 'Backbone': 'backbone'
-}));
-
+plugins.push(new webpack.ProvidePlugin({'Backbone': 'backbone'}));
 plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
 
-var config = {
+let config = {
   entry: __dirname + '/src/index.js',
 
   devtool: 'source-map',
@@ -37,12 +40,12 @@ var config = {
   module: {
     loaders: [
       {
-        test: /(\.jsx|\.js)$/,
+        test: /(\.js)$/,
         loader: 'babel-loader',
         exclude: /(node_modules|bower_components)/
-      },/*
+      }/*,
       {
-        test: /(\.jsx|\.js)$/,
+        test: /(\.js)$/,
         loader: 'eslint-loader',
         exclude: /node_modules/
       }*/
@@ -51,10 +54,11 @@ var config = {
 
   resolve: {
     alias: {
-      backbone$: path.resolve(__dirname, './node_modules/backbone/backbone-min.js')
+      backbone$: path.resolve(__dirname, './node_modules/backbone/backbone-min.js'),
+      jquery$: path.resolve(__dirname, './node_modules/jquery/dist/jquery.min.js')
     },
     extensions: ['.js'],
-    modules: ['node_modules']
+    modules: [path.resolve('./src')]
   },
 
   plugins: plugins

@@ -27,4 +27,7 @@ bower_components/
 
 # ignore the generated output since it should be always freshly builts from source
 lib/
+package-lock.json
+yarn.lock
+
 
